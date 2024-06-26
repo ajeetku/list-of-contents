@@ -1,0 +1,81 @@
+/* General TOC Styles */
+.loc-toc {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+}
+
+.loc-toc ol {
+    list-style: none;
+    padding-left: 0;
+}
+
+.loc-toc li {
+    margin: 5px 0;
+}
+
+/* Design 1 */
+.loc-toc.design1 {
+    border-color: #0073aa;
+    background: #e7f3ff;
+}
+
+.loc-toc.design1 a {
+    color: #0073aa;
+    text-decoration: none;
+}
+
+.loc-toc.design1 a:hover {
+    text-decoration: underline;
+}
+
+/* Design 2 */
+.loc-toc.design2 {
+    border-color: #ff6f61;
+    background: #fff5f3;
+}
+
+.loc-toc.design2 a {
+    color: #ff6f61;
+    text-decoration: none;
+}
+
+.loc-toc.design2 a:hover {
+    text-decoration: underline;
+}
+
+/* Design 3 */
+.loc-toc.design3 {
+    border-color: #28a745;
+    background: #e9f7ef;
+}
+
+.loc-toc.design3 a {
+    color: #28a745;
+    text-decoration: none;
+}
+
+.loc-toc.design3 a:hover {
+    text-decoration: underline;
+}
+
+/* Design 4: Two Columns */
+.loc-toc.design4 {
+    border-color: #6c757d;
+    background: #f8f9fa;
+}
+
+.loc-toc.design4 ol {
+    column-count: 2;
+    column-gap: 20px;
+}
+
+.loc-toc.design4 a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.loc-toc.design4 a:hover {
+    text-decoration: underline;
+}
