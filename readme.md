@@ -6,7 +6,7 @@ Tags:              list of content, table of contents, toc, navigation, page nav
 Requires at least: 5.0  
 Requires PHP:      7.0
 Tested up to:      6.5.5  
-Stable tag:        1.0.0  
+Stable tag:        1.0.1  
 License:           GPLv2 or later  
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -70,6 +70,9 @@ A: Yes, you can use the provided widget to place the TOC in your theme’s sideb
 * Initial release.
 
 == Upgrade Notice ==
+= 1.0.1 =
+* Added new design with order in parallel.
+* Admin settings update
 
 = 1.0.0 =
 * Initial release.
