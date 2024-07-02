@@ -21,13 +21,19 @@ class LOCP_Plugin {
     }
 
     public function enqueue_scripts() {
+        $options = $this->settings->get_options_with_defaults();
+        $design_class = isset($options['locp_loc_design']) ? $options['locp_loc_design'] : 'design1';
+        if($design_class=='design1'){
         wp_enqueue_style('locp-style', LOCP_PLUGIN_URL . 'assets/css/style.css', array(), LOCP_PLUGIN_VESION);
+        }else{
+            wp_enqueue_style('locp-style', LOCP_PLUGIN_URL . 'assets/css/format/'.$design_class.'.css', array(), LOCP_PLUGIN_VESION);
+        }
         wp_enqueue_script('locp-script', LOCP_PLUGIN_URL . 'assets/js/script.js', array(), LOCP_PLUGIN_VESION, true);
     }
 
     public function insert_loc($content) {
         if (is_singular() && in_the_loop() && is_main_query()) {
-            $options = $this->settings->get_options();
+            $options = $this->settings->get_options_with_defaults();
             if ((is_single() && $options['locp_enable_posts']) || (is_page() && $options['locp_enable_pages'])) {
                 // Logic to generate and insert TOC goes here.
                 $toc = $this->generate_locp($content);
@@ -40,9 +46,8 @@ class LOCP_Plugin {
     }
 
     private function generate_locp($content) {
-        $options = $this->settings->get_options();
+        $options = $this->settings->get_options_with_defaults();
         // $options = get_option('locp_options');
-        $options = isset($options['locp_enable_posts']) ? $options['locp_enable_posts'] : 'true';
         $design_class = isset($options['locp_loc_design']) ? $options['locp_loc_design'] : 'design1';
     
         $toc = '<div class="loc-toc ' . esc_attr($design_class) . '"><h3>'.esc_html(__('List of content','list-of-contents')).'</h3><ol>';

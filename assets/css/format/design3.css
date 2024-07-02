@@ -15,20 +15,17 @@
     margin: 5px 0;
 }
 
-/* Design 1 */
-.loc-toc.design1 {
-    border-color: #0073aa;
-    background: #e7f3ff;
+/* Design 3 */
+.loc-toc.design3 {
+    border-color: #28a745;
+    background: #e9f7ef;
 }
 
-.loc-toc.design1 a {
-    color: #0073aa;
+.loc-toc.design3 a {
+    color: #28a745;
     text-decoration: none;
 }
 
-.loc-toc.design1 a:hover {
+.loc-toc.design3 a:hover {
     text-decoration: underline;
 }
-
-
-

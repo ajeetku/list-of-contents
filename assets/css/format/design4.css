@@ -15,20 +15,23 @@
     margin: 5px 0;
 }
 
-/* Design 1 */
-.loc-toc.design1 {
-    border-color: #0073aa;
-    background: #e7f3ff;
+/* Design 4: Two Columns */
+.loc-toc.design4 {
+    border-color: #6c757d;
+    background: #f8f9fa;
 }
 
-.loc-toc.design1 a {
-    color: #0073aa;
+.loc-toc.design4 ol {
+    column-count: 2;
+    column-gap: 20px;
+}
+
+.loc-toc.design4 a {
+    color: #5d5c5c;
     text-decoration: none;
+    font-weight: 500;
 }
 
-.loc-toc.design1 a:hover {
+.loc-toc.design4 a:hover {
     text-decoration: underline;
 }
-
-
-
