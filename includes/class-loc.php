@@ -2,8 +2,10 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly 
 
 class LOCP_Plugin {
-
+    private $settings;
     public function __construct() {
+        $this->settings = new LOCP_Settings();
+
         // Add initialization actions and filters here.
         add_action('init', array($this, 'load_textdomain'));
         add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
@@ -25,17 +27,22 @@ class LOCP_Plugin {
 
     public function insert_loc($content) {
         if (is_singular() && in_the_loop() && is_main_query()) {
-            // Logic to generate and insert TOC goes here.
-            $toc = $this->generate_locp($content);
-            
-            // Insert the TOC after the first paragraph
-            $content = $this->insert_loc_after_first_paragraph($content, $toc);
+            $options = $this->settings->get_options();
+            if ((is_single() && $options['locp_enable_posts']) || (is_page() && $options['locp_enable_pages'])) {
+                // Logic to generate and insert TOC goes here.
+                $toc = $this->generate_locp($content);
+                
+                // Insert the TOC after the first paragraph
+                $content = $this->insert_loc_after_first_paragraph($content, $toc);
+            }
         }
         return $content;
     }
 
     private function generate_locp($content) {
-        $options = get_option('locp_options');
+        $options = $this->settings->get_options();
+        // $options = get_option('locp_options');
+        $options = isset($options['locp_enable_posts']) ? $options['locp_enable_posts'] : 'true';
         $design_class = isset($options['locp_loc_design']) ? $options['locp_loc_design'] : 'design1';
     
         $toc = '<div class="loc-toc ' . esc_attr($design_class) . '"><h3>'.esc_html(__('List of content','list-of-contents')).'</h3><ol>';

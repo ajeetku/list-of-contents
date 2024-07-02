@@ -6,6 +6,18 @@ class LOCP_Settings {
     public function __construct() {
         add_action('admin_menu', array($this, 'add_admin_menu'));
         add_action('admin_init', array($this, 'settings_init'));
+        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_styles'));
+    }
+
+    public function get_options_with_defaults() {
+        $default_options = array(
+            'locp_enable_posts' => 1,
+            'locp_enable_pages' => 1,
+            'locp_loc_design' => 'design1',
+        );
+        
+        $options = get_option('locp_options', array());
+        return wp_parse_args($options, $default_options);
     }
 
     public function add_admin_menu() {
@@ -55,21 +67,28 @@ class LOCP_Settings {
     }
 
     public function enable_posts_render() {
-        $options = get_option('locp_options');
+        $options = $this->get_options_with_defaults();
         ?>
-        <input type='checkbox' name='locp_options[locp_enable_posts]' <?php checked(@$options['locp_enable_posts'], 1); ?> value='1'>
+        <label class="locp-switch">
+            <input type="checkbox" name='locp_options[locp_enable_posts]' <?php checked(@$options['locp_enable_posts'], 1); ?>>
+            <span class="locp-slider locp-round"></span>
+        </label>
         <?php
     }
 
     public function enable_pages_render() {
-        $options = get_option('locp_options');
+        $options = $this->get_options_with_defaults();
         ?>
-        <input type='checkbox' name='locp_options[locp_enable_pages]' <?php checked(@$options['locp_enable_pages'], 1); ?> value='1'>
+        <label class="locp-switch">
+            <input type="checkbox" name='locp_options[locp_enable_posts]' <?php checked(@$options['locp_enable_pages'], 1); ?>>
+            <span class="locp-slider locp-round"></span>
+        </label>
+        <!-- <input type='checkbox' name='locp_options[locp_enable_pages]' <?php checked( $options['locp_enable_pages'], 1); ?> value='1'> -->
         <?php
     }
     
     public function toc_design_render() {
-        $options = get_option('locp_options');
+        $options = $this->get_options_with_defaults();
         ?>
         <select name='locp_options[locp_loc_design]'>
             <option value='design1' <?php isset($options['locp_loc_design'])? selected($options['locp_loc_design'], 'Design 1') : ''; ?>><?php esc_html_e('Design 1', 'list-of-contents'); ?></option>
@@ -80,6 +99,12 @@ class LOCP_Settings {
         <?php
     }
     
+    public function enqueue_admin_styles($hook) {
+        if ($hook != 'settings_page_list_of_contents') {
+            return;
+        }
+        wp_enqueue_style('locp_admin_css', LOCP_PLUGIN_URL . 'assets/css/admin-style.css');
+    }
 
     public function options_page() {
         ?>
