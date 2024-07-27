@@ -5,8 +5,8 @@ Donate link:       https://www.paypal.com/paypalme/Ajeet260/25
 Tags:              list of content, table of contents, toc, navigation, page navigation
 Requires at least: 5.0  
 Requires PHP:      7.0
-Tested up to:      6.5.5 
-Stable tag:        1.0.1  
+Tested up to:      6.6.1
+Stable tag:        1.0.2
 License:           GPLv2 or later  
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -65,6 +65,10 @@ A: Yes, you can use the provided widget to place the TOC in your theme’s sideb
 4. =Design Options=: Different design options for the TOC.
 
 == Changelog ==
+= 1.0.2 =
+* Added a block for the list of contents.
+* Resolved the pagination link issue nextpage.
+
 = 1.0.1 =
 * Added new design with order in parallel.
 * Admin settings update

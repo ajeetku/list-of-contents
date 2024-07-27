@@ -11,12 +11,16 @@ class LOCP_Settings {
         add_action('admin_menu', array($this, 'add_admin_menu'));
         add_action('admin_init', array($this, 'settings_init'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_styles'));
+        add_filter('plugin_action_links_' . LOCP_PLUGIN_BASENAME, array($this, 'add_settings_link'));
+
+        add_action( 'wp_head', array( __CLASS__, 'ez_toc_schema_sitenav_creator' ) );
     }
 
     public function get_options_with_defaults() {
         $default_options = array(
             'locp_enable_posts' => 1,
             'locp_enable_pages' => 1,
+            'post_types'=> array(),
             'locp_loc_design' => 'design1',
         );
         
@@ -61,6 +65,14 @@ class LOCP_Settings {
         );
 
         add_settings_field(
+            'locp_enable_post_types',
+            __('Enable for Pages', 'list-of-contents'),
+            array($this, 'enable_otherPostTypes_render'),
+            'locp_settings',
+            'locp_settings_section'
+        );
+
+        add_settings_field(
             'locp_loc_design',
             __('LOC Designs', 'list-of-contents'),
             array($this, 'toc_design_render'),
@@ -74,7 +86,7 @@ class LOCP_Settings {
         $options = $this->get_options_with_defaults();
         ?>
         <label class="locp-switch">
-            <input type="checkbox" name='locp_options[locp_enable_posts]' <?php checked(@$options['locp_enable_posts'], 1); ?>>
+            <input type="checkbox" name='locp_options[locp_enable_posts]' <?php checked(@$options['locp_enable_posts'], 1); ?> value="1">
             <span class="locp-slider locp-round"></span>
         </label>
         <?php
@@ -84,11 +96,31 @@ class LOCP_Settings {
         $options = $this->get_options_with_defaults();
         ?>
         <label class="locp-switch">
-            <input type="checkbox" name='locp_options[locp_enable_posts]' <?php checked(@$options['locp_enable_pages'], 1); ?>>
+            <input type="checkbox" name='locp_options[locp_enable_posts]' <?php checked(@$options['locp_enable_pages'], 1); ?> value="1">
             <span class="locp-slider locp-round"></span>
         </label>
         <!-- <input type='checkbox' name='locp_options[locp_enable_pages]' <?php checked( $options['locp_enable_pages'], 1); ?> value='1'> -->
         <?php
+    }
+
+    public function enable_otherPostTypes_render(){
+        $options = $this->get_options_with_defaults();
+        $selected_post_types = isset($options['post_types']) ? $options['post_types'] : array();
+        $args = array(
+            'public'   => true,
+            '_builtin' => false,
+        );
+        $post_types = get_post_types($args, 'objects');
+        foreach ($post_types as $post_type) {
+            $is_checked = in_array($post_type->name, $selected_post_types) ? 'checked' : '';
+        ?>
+            <label>
+                <input type="checkbox" name="locp_options[post_types][]" value="<?php echo esc_attr($post_type->name); ?>" <?php echo $is_checked; ?>>
+                <?php echo esc_html($post_type->label); ?>
+            </label><br>
+        <!-- <input type='checkbox' name='locp_options[locp_enable_pages]' <?php checked( $options['locp_enable_pages'], 1); ?> value='1'> -->
+        <?php
+        }
     }
     
     public function toc_design_render() {
@@ -109,6 +141,12 @@ class LOCP_Settings {
             return;
         }
         wp_enqueue_style('locp_admin_css', LOCP_PLUGIN_URL . 'assets/css/admin-style.css');
+    }
+
+    function add_settings_link($links) {
+        $settings_link = '<a href="options-general.php?page=list_of_contents">Settings</a>';
+        array_unshift($links, $settings_link);
+        return $links;
     }
 
     public function options_page() {
