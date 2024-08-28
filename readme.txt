@@ -65,6 +65,10 @@ A: Yes, you can use the provided widget to place the TOC in your theme’s sideb
 4. =Design Options=: Different design options for the TOC.
 
 == Changelog ==
+= 1.0.3 (28-08-2024) =
+* Avoid blank headings.
+* remove block, if no headings.
+
 = 1.0.2 =
 * Added a block for the list of contents.
 * Resolved the pagination link issue nextpage.
