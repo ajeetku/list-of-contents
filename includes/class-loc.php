@@ -65,8 +65,10 @@ class LOCP_Plugin {
                 // Logic to generate and insert TOC goes here.
                 $toc = $this->generate_locp($content);
                 
-                // Insert the TOC after the first paragraph
-                $content = $this->insert_loc_after_first_paragraph($content, $toc);
+                if(isset($toc[1]) && count($toc[1])>0){
+                    // Insert the TOC after the first paragraph
+                    $content = $this->insert_loc_after_first_paragraph($content, $toc);
+                }
             }
         }
         return $content;
@@ -88,12 +90,14 @@ class LOCP_Plugin {
                 preg_match_all($pattern, $page_content, $page_matches, PREG_SET_ORDER);
                 foreach ($page_matches as $heading) {
                     $id = sanitize_title($heading[2]);
-                    $link = '#'.esc_attr($id);
-                    if($this->getCurrentPage()!=($page_num + 1)){
-                        $link = trailingslashit(get_permalink($post->ID)) . ($page_num + 1) . '/#' . esc_attr($id);
+                    if($id){
+                        $link = '#'.esc_attr($id);
+                        if($this->getCurrentPage()!=($page_num + 1)){
+                            $link = trailingslashit(get_permalink($post->ID)) . ($page_num + 1) . '/#' . esc_attr($id);
+                        }
+                        $toc .= '<li><a href="' . esc_attr($link) . '">' . esc_html(wp_kses($heading[2], array())) . '</a></li>';
+                        $contentReplacer[] = $heading;
                     }
-                    $toc .= '<li><a href="' . esc_attr($link) . '">' . esc_html(wp_kses($heading[2], array())) . '</a></li>';
-                    $contentReplacer[] = $heading;
                 }
             }
             $toc .= '</ol></div>';
@@ -105,9 +109,11 @@ class LOCP_Plugin {
             if (!empty($matches)) {
                 foreach ($matches as $heading) {
                     $id = sanitize_title($heading[2]);
-                    $toc .= '<li><a href="#' . esc_attr($id) . '">' . esc_html(wp_kses($heading[2], array())) . '</a></li>';
+                    if($id){
+                        $toc .= '<li><a href="#' . esc_attr($id) . '">' . esc_html(wp_kses($heading[2], array())) . '</a></li>';
 
-                    $contentReplacer[] = $heading;
+                        $contentReplacer[] = $heading;
+                    }
                     // Add ID to the original heading in content
                     // $content = str_replace($heading[0], '<h' . esc_attr($heading[1]) . ' id="' . esc_attr($id) . '">' . esc_html(wp_kses($heading[2], array())) . '</h' . esc_attr($heading[1]) . '>', $content);
                 }
