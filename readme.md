@@ -1,6 +1,6 @@
 === List of Contents ===
 
-Contributors:      ajku99
+Contributors:      CodeInitiator
 Donate link:       https://www.paypal.com/paypalme/Ajeet260/25
 Tags:              list of content, table of contents, toc, navigation, page navigation
 Requires at least: 5.0  
@@ -65,6 +65,10 @@ A: Yes, you can use the provided widget to place the TOC in your theme’s sideb
 4. =Design Options=: Different design options for the TOC.
 
 == Changelog ==
+= 1.0.4 (15-09-2024) =
+* Added Navigation to index on google search.
+* Added Compatibility with classic editor.
+
 = 1.0.3 (28-08-2024) =
 * Avoid blank headings.
 * remove block, if no headings.
