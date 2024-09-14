@@ -79,7 +79,7 @@ class LOCP_Plugin {
         // $options = get_option('locp_options');
         $design_class = isset($options['locp_loc_design']) ? $options['locp_loc_design'] : 'design1';
     
-        $toc = '<div class="loc-toc ' . esc_attr($design_class) . '"><h3>'.esc_html(__('List of content','list-of-contents')).'</h3><ol>';
+        $toc = '<div class="loc-toc ' . esc_attr($design_class) . '"><h2 id="table-of-contents">'.esc_html(__('List of content','list-of-contents')).'</h2><nav><ol>';
         
         global $post;
 
@@ -100,7 +100,6 @@ class LOCP_Plugin {
                     }
                 }
             }
-            $toc .= '</ol></div>';
         }else{
             $pattern = '/<h([1-6])[^>]*>(.*?)<\/h\1>/i';
             preg_match_all($pattern, $content, $matches, PREG_SET_ORDER);
@@ -118,8 +117,8 @@ class LOCP_Plugin {
                     // $content = str_replace($heading[0], '<h' . esc_attr($heading[1]) . ' id="' . esc_attr($id) . '">' . esc_html(wp_kses($heading[2], array())) . '</h' . esc_attr($heading[1]) . '>', $content);
                 }
             }
-            $toc .= '</ol></div>';
         }
+        $toc .= '</ol></nav></div>';
         
         return array($toc , $contentReplacer);
     }    
