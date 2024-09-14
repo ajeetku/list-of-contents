@@ -14,7 +14,7 @@ Automatically generate a table of contents for your posts, pages, and custom pos
 
 == Description ==
 
-List of Contents is a powerful yet user-friendly plugin that automatically generates a table of contents for your posts, pages, and custom post types by parsing the contents for headers. It supports multiple post editors and integrates seamlessly with popular plugins.
+List of Contents(Table of contents) is a powerful yet user-friendly plugin that automatically generates a table of contents for your posts, pages, and custom post types by parsing the contents for headers. It supports multiple post editors and integrates seamlessly with popular plugins.
 
 == Features ==
 
