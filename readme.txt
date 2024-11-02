@@ -5,16 +5,18 @@ Donate link:       https://www.paypal.com/paypalme/Ajeet260/25
 Tags:              list of content, table of contents, toc, navigation, page navigation
 Requires at least: 5.0  
 Requires PHP:      7.0
-Tested up to:      6.6.1
-Stable tag:        1.0.2
+Tested up to:      6.6.2 
+Stable tag:        1.0.5
 License:           GPLv2 or later  
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html  
 
-Automatically generate a table of contents for your posts, pages, and custom post types. Compatible with various page builders and plugins.
+Automatically generate a table of contents/list of contents for your posts, pages, and custom post types. Compatible with various page builders and plugins.
 
 == Description ==
 
-List of Contents(Table of contents) is a powerful yet user-friendly plugin that automatically generates a table of contents for your posts, pages, and custom post types by parsing the contents for headers. It supports multiple post editors and integrates seamlessly with popular plugins.
+[table of contents/list of contents](https://wordpress.org/plugins/list-of-contents/) is a powerful yet user-friendly plugin that automatically generates a table of contents for your posts, pages, and custom post types by parsing the contents for headers. It supports multiple post editors and integrates seamlessly with popular plugins.
+
+[Home](https://infonews.in/customized-wordpress-development-services-expert-problem-solving/)|  [Help & Tech Support](https://infonews.in/contact/)
 
 == Features ==
 
@@ -65,6 +67,11 @@ A: Yes, you can use the provided widget to place the TOC in your theme’s sideb
 4. =Design Options=: Different design options for the TOC.
 
 == Changelog ==
+= 1.0.5 (02-11-2024) =
+* Added toggle list contents feature on click of Heading text.
+* Added option for Heading text field.
+* Updated settings panel
+
 = 1.0.4 (15-09-2024) =
 * Added Navigation to index on google search.
 * Added Compatibility with classic editor.
@@ -77,14 +84,13 @@ A: Yes, you can use the provided widget to place the TOC in your theme’s sideb
 * Added a block for the list of contents.
 * Resolved the pagination link issue nextpage.
 
-= 1.0.1 =
-* Added new design with order in parallel.
-* Admin settings update
-
 = 1.0.0 =
 * Initial release.
 
 == Upgrade Notice ==
+= 1.0.1 =
+* Added new design with order in parallel.
+* Admin settings update
 
 = 1.0.0 =
 * Initial release.
