@@ -1,6 +1,6 @@
 === List of Contents ===
 
-Contributors:      CodeInitiator
+Contributors:      ajku99
 Donate link:       https://www.paypal.com/paypalme/Ajeet260/25
 Tags:              list of content, table of contents, toc, navigation, page navigation
 Requires at least: 5.0  
