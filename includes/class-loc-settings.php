@@ -22,6 +22,8 @@ class LOCP_Settings {
             'locp_enable_pages' => 1,
             'post_types'=> array(),
             'locp_loc_design' => 'design1',
+            'locp_app_heading_text' => 'Table of Contents',
+            'locp_app_heading_toggle' => ''
         );
         
         $options = get_option('locp_options', array());
@@ -152,11 +154,12 @@ class LOCP_Settings {
         $options = $this->get_options_with_defaults();
         ?>
         <select name='locp_options[locp_loc_design]'>
-            <option value='design1' <?php selected($options['locp_loc_design'], 'design1'); ?>><?php esc_html_e('Design 1', 'list-of-contents'); ?></option>
-            <option value='design2' <?php selected($options['locp_loc_design'], 'design2'); ?>><?php esc_html_e('Design 2', 'list-of-contents'); ?></option>
-            <option value='design3' <?php selected($options['locp_loc_design'], 'design3'); ?>><?php esc_html_e('Design 3', 'list-of-contents'); ?></option>
-            <option value='design4' <?php selected($options['locp_loc_design'], 'design4'); ?>><?php esc_html_e('Design 4 (Two Columns)', 'list-of-contents'); ?></option>
-            <option value='design5' <?php selected($options['locp_loc_design'], 'design5'); ?>><?php esc_html_e('Design 5 (Two Columns with order)', 'list-of-contents'); ?></option>
+            <option value='design1' <?php isset($options['locp_loc_design'])? selected($options['locp_loc_design'], 'Design 1') : ''; ?>><?php esc_html_e('Design 1', 'list-of-contents'); ?></option>
+            <option value='design2' <?php isset($options['locp_loc_design'])? selected($options['locp_loc_design'], 'design2') : ''; ?>><?php esc_html_e('Design 2', 'list-of-contents'); ?></option>
+            <option value='design3' <?php isset($options['locp_loc_design'])? selected($options['locp_loc_design'], 'design3') : ''; ?>><?php esc_html_e('Design 3', 'list-of-contents'); ?></option>
+            <option value='design4' <?php isset($options['locp_loc_design'])? selected($options['locp_loc_design'], 'design4'): ''; ?>><?php esc_html_e('Design 4 (Two Columns)', 'list-of-contents'); ?></option>
+            <option value='design5' <?php isset($options['locp_loc_design'])? selected($options['locp_loc_design'], 'design5'): ''; ?>><?php esc_html_e('Design 5 (Two Columns with order)', 'list-of-contents'); ?></option>
+            <option value='design6' <?php isset($options['locp_loc_design'])? selected($options['locp_loc_design'], 'design6'): ''; ?>><?php esc_html_e('Design 6 (Right hand cornor)', 'list-of-contents'); ?></option>
         </select>
         <?php
     }
