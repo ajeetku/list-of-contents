@@ -13,7 +13,7 @@ class LOCP_Settings {
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_styles'));
         add_filter('plugin_action_links_' . LOCP_PLUGIN_BASENAME, array($this, 'add_settings_link'));
 
-        add_action( 'wp_head', array( __CLASS__, 'ez_toc_schema_sitenav_creator' ) );
+        add_action('wp_ajax_locp_send_query_message', array( $this, 'locp_send_help_query_message'));
     }
 
     public function get_options_with_defaults() {
@@ -180,6 +180,58 @@ class LOCP_Settings {
         <input type="text" name="locp_options[locp_app_heading_text]" value="<?php echo @$options['locp_app_heading_text']? @$options['locp_app_heading_text']: 'Table of Contents'; ?>">
         <?php
     }
+
+    function locp_send_help_query_message(){
+        if ( ! isset( $_POST['locp_security_nonce'] ) ){
+            return; 
+         }
+         if ( !wp_verify_nonce( $_POST['locp_security_nonce'], 'locp_ajax_check_nonce' ) ){
+            return;  
+         }   
+         if ( !current_user_can( 'manage_options' ) ) {
+             return;  					
+         }
+         $message        = sanitize_textarea_field($_POST['locp_help_query_message']); 
+         $email          = sanitize_email($_POST['locp_help_query_email']);
+                                 
+         if(function_exists('wp_get_current_user')){
+
+             $user           = wp_get_current_user();
+
+          
+             $message = '<p>'.$message.'</p><br><br>'.'Query from for list of Content plugin: '.get_option('home');
+             
+             $user_data  = $user->data;        
+             $user_email = $user_data->user_email;     
+             
+             if($email){
+                 $user_email = $email;
+             }            
+             //php mailer variables        
+             $sendto    = 'ashu64711@gmail.com';
+             $subject   = "List of Content Query or Help";
+             
+             $headers[] = 'Content-Type: text/html; charset=UTF-8';
+             $headers[] = 'From: '. esc_attr($user_email);            
+             $headers[] = 'Reply-To: ' . esc_attr($user_email);
+             // Load WP components, no themes.   
+
+             $sent = wp_mail($sendto, $subject, $message, $headers); 
+
+             if($sent){
+
+                  echo wp_json_encode(array('status'=>'t'));  
+
+             }else{
+
+                 echo wp_json_encode(array('status'=>'f'));            
+
+             }
+             
+         }
+                         
+         wp_die();
+    }
     
     public function enqueue_admin_styles($hook) {
         if ($hook != 'settings_page_list_of_contents') {
@@ -233,9 +285,76 @@ class LOCP_Settings {
                 <div class="locp-tab-content" id="other-settings">
                     <h3><?php esc_html_e('Other Settings', 'list-of-contents'); ?></h3>
                     <p><?php esc_html_e('Additional settings can go here.', 'list-of-contents'); ?></p>
+                    <table class="form-table">
+                    <tr>
+                        <th>Email</th>
+                        <td>
+                            <input type="text" id="locp_help_query_email" name="locp_help_query_email" placeholder="<?php esc_html_e( 'Enter your Email', 'list-of-contents' ) ?>" style="width: 350px;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Ask Query/Changes/Help</th>
+                        <td>
+                            <textarea rows="5" cols="50" id="locp_help_query_message" name="locp_help_query_message" placeholder="<?php esc_html_e( 'Write your query or enhancement changes', 'list-of-contents' ) ?>"></textarea>
+                        </td>
+                    </tr>
+                    </table>
+                    <p class="submitemail"><input type="button" name="submitEmail" id="locp-help-query-button" class="button button-primary" value="Send"></p>
+                    <div id="message-acknowledgement"></div>
                 </div>
             </form>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const locp_ajax_url = '<?php echo admin_url('admin-ajax.php') ?>'
+                const locp_nonce = '<?php echo wp_create_nonce('locp_ajax_check_nonce') ?>'
+                const messageField = document.getElementById('locp_help_query_message');
+                const emailField = document.getElementById('locp_help_query_email');
+                const messageButton = document.getElementById('locp-help-query-button');
+
+                messageButton.addEventListener('click', function () {
+                    const email = emailField.value.trim();
+                    const message = messageField.value.trim();
+
+                    if (!email || !message) {
+                        alert('Please fill in both the email and message fields.');
+                        return;
+                    }
+
+                    const data = new FormData();
+                    data.append('action', 'locp_send_query_message');
+                    data.append('locp_help_query_email', email);
+                    data.append('locp_help_query_message', message);
+                    data.append('locp_security_nonce', locp_nonce);
+
+                    fetch(locp_ajax_url, {
+                        method: 'POST',
+                        body: data,
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            // alert('Your message has been sent successfully!');
+                            document.getElementById("message-acknowledgement").innerHTML = 'Your message has been sent successfully! We will response you within 24 HR.'
+                            document.getElementById("message-acknowledgement").style.color = 'green';
+                            emailField.value = '';
+                            messageField.value = '';
+                        } else {
+                            document.getElementById("message-acknowledgement").innerHTML = 'Error: ' + (result.data || 'There was an error sending your message.')       
+                            document.getElementById("message-acknowledgement").style.color = 'red';
+                            // alert('Error: ' + (result.data || 'There was an error sending your message.'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        document.getElementById("message-acknowledgement").innerHTML = 'There was an error sending your message. Please try again.'
+                        document.getElementById("message-acknowledgement").style.color = 'red';
+                        // alert('There was an error sending your message. Please try again.');
+                    });
+                });
+            });
+
+        </script>
         <?php
     }
 }
