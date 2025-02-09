@@ -119,8 +119,7 @@ class LOCP_Plugin {
             }
         }
         $toc .= '</ol></nav></div>';
-        if(isset($options['locp_app_heading_toggle']) && $options['locp_app_heading_toggle']==1){
-            $designBasedJs = '';
+        $designBasedJs = '';
             if($design_class=='design6'){
                 $designBasedJs = 'if (classnames.includes("design6")) {
                     tocTitle.addEventListener("click", function () {
@@ -133,12 +132,9 @@ class LOCP_Plugin {
                     })
                 }';
             }
-        $toc .= '<script id="loc-javascript">
-            document.addEventListener("DOMContentLoaded", function () {
-                const tocTitle = document.getElementById("list-table-of-contents");
-                let classnames = tocTitle.parentNode.className
-                '.$designBasedJs.'
-                const tocNav = tocTitle && tocTitle.nextElementSibling ? tocTitle.nextElementSibling : null; // Assuming the TOC <nav> follows the title. .querySelector("ol")
+            $toggleTitle = '';
+        if(isset($options['locp_app_heading_toggle']) && $options['locp_app_heading_toggle']==1){
+            $toggleTitle = 'const tocNav = tocTitle && tocTitle.nextElementSibling ? tocTitle.nextElementSibling : null; // Assuming the TOC <nav> follows the title. .querySelector("ol")
 
                 if (tocTitle && tocNav) {
                     tocNav.style.display = "block"; // Initially hide the TOC content.
@@ -146,12 +142,18 @@ class LOCP_Plugin {
                     tocTitle.addEventListener("click", function () {
                         tocNav.style.display = tocNav.style.display === "none" ? "block" : "none";
                     });
-                }
+                }';
+        
+        }
+        $toc .= '<script id="loc-javascript">
+            document.addEventListener("DOMContentLoaded", function () {
+                const tocTitle = document.getElementById("list-table-of-contents");
+                let classnames = tocTitle.parentNode.className
+                '.$designBasedJs.'
                 
+                '.$toggleTitle.'
             });
         </script>';
-        }
-        
         return array($toc , $contentReplacer);
     }    
     
