@@ -39,7 +39,7 @@ class LOCP_Plugin {
         }else{
             wp_enqueue_style('locp-style', LOCP_PLUGIN_URL . 'assets/css/format/'.$design_class.'.css', array(), LOCP_PLUGIN_VESION);
         }
-        wp_enqueue_script('locp-script', LOCP_PLUGIN_URL . 'assets/js/script.js', array(), LOCP_PLUGIN_VESION, true);
+        wp_enqueue_script('locp-script', LOCP_PLUGIN_URL . 'assets/js/loc-script.js', array(), LOCP_PLUGIN_VESION, true);
     }
 
     public function enqueue_block_editor_assets() {
@@ -79,7 +79,7 @@ class LOCP_Plugin {
         // $options = get_option('locp_options');
         $design_class = isset($options['locp_loc_design']) ? $options['locp_loc_design'] : 'design1';
     
-        $toc = '<div class="loc-toc ' . esc_attr($design_class) . '"><h2 id="table-of-contents">'.esc_html(__('List of content','list-of-contents')).'</h2><nav><ol>';
+        $toc = '<div class="loc-toc ' . esc_attr($design_class) . '"><p style="cursor:pointer" id="list-table-of-contents">'.esc_html(__($options['locp_app_heading_text'],'list-of-contents')).'</p><nav><ol>';
         
         global $post;
 
@@ -119,7 +119,41 @@ class LOCP_Plugin {
             }
         }
         $toc .= '</ol></nav></div>';
+        $designBasedJs = '';
+            if($design_class=='design6'){
+                $designBasedJs = 'if (classnames.includes("design6")) {
+                    tocTitle.addEventListener("click", function () {
+                        if(tocTitle.parentNode.className.includes("loc-closed")){
+                            tocTitle.parentNode.classList.remove("loc-closed");
+                        }else{
+                            tocTitle.parentNode.classList.add("loc-closed");
+                        }
+                        
+                    })
+                }';
+            }
+            $toggleTitle = '';
+        if(isset($options['locp_app_heading_toggle']) && $options['locp_app_heading_toggle']==1){
+            $toggleTitle = 'const tocNav = tocTitle && tocTitle.nextElementSibling ? tocTitle.nextElementSibling : null; // Assuming the TOC <nav> follows the title. .querySelector("ol")
+
+                if (tocTitle && tocNav) {
+                    tocNav.style.display = "block"; // Initially hide the TOC content.
+
+                    tocTitle.addEventListener("click", function () {
+                        tocNav.style.display = tocNav.style.display === "none" ? "block" : "none";
+                    });
+                }';
         
+        }
+        $toc .= '<script id="loc-javascript">
+            document.addEventListener("DOMContentLoaded", function () {
+                const tocTitle = document.getElementById("list-table-of-contents");
+                let classnames = tocTitle.parentNode.className
+                '.$designBasedJs.'
+                
+                '.$toggleTitle.'
+            });
+        </script>';
         return array($toc , $contentReplacer);
     }    
     

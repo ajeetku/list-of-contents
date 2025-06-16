@@ -1,20 +1,22 @@
 === List of Contents ===
 
-Contributors:      CodeInitiator
+Contributors:      ajku99
 Donate link:       https://www.paypal.com/paypalme/Ajeet260/25
 Tags:              list of content, table of contents, toc, navigation, page navigation
 Requires at least: 5.0  
 Requires PHP:      7.0
-Tested up to:      6.6.1  
-Stable tag:        1.0.2
+Tested up to:      6.8
+Stable tag:        1.0.8
 License:           GPLv2 or later  
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html  
 
-Automatically generate a table of contents for your posts, pages, and custom post types. Compatible with various page builders and plugins.
+Automatically generate a list of contents/table of contents for your posts, pages, and custom post types. Compatible with page builders and plugins.
 
 == Description ==
 
-List of Contents is a powerful yet user-friendly plugin that automatically generates a table of contents for your posts, pages, and custom post types by parsing the contents for headers. It supports multiple post editors and integrates seamlessly with popular plugins.
+[table of contents/list of contents](https://wordpress.org/plugins/list-of-contents/) is a powerful yet user-friendly plugin that automatically generates a table of contents for your posts, pages, and custom post types by parsing the contents for headers. It supports multiple post editors and integrates seamlessly with popular plugins.
+
+[Home](https://infonews.in/customized-wordpress-development-services-expert-problem-solving/)|  [Help & Tech Support](https://infonews.in/contact/)
 
 == Features ==
 
@@ -51,20 +53,36 @@ A: Yes, you can selectively enable or disable the TOC on a per-post basis.
 =Q: How can I customize the appearance of the TOC?=  
 A: The plugin provides several built-in themes and customization options for the border, background, and link colors. You can select your preferred design in the settings.
 
-=Q: Does the plugin support page builders?=  
+=Q: Does the plugin support page builders?=
 A: Yes, the plugin works with Classic Editor, Gutenberg, Divi, Elementor, WPBakery Page Builder, and Visual Composer.
 
 =Q: Can I add the TOC to my sidebar?=  
 A: Yes, you can use the provided widget to place the TOC in your theme’s sidebar. The widget supports sticky positioning and section highlighting.
 
 == Screenshots ==
-
-1. =Settings Page=: Configure the plugin settings.
-2. =TOC in Post=: Example of a TOC inserted into a post.
-3. =Widget=: Example of the TOC widget in the sidebar.
-4. =Design Options=: Different design options for the TOC.
+1. Design 5 (Two Columns with order).
+2. Design 4 (Two Columns).
+3. Design 6 (Right hand cornor).
+4. Design 3.
+5. Design 2.
+6. Design 1
 
 == Changelog ==
+= 1.0.8 (15-06-2025) =
+* (Updated) Improvements and testing for WordPress 6.8
+
+= 1.0.7 (09-02-2025) =
+* [Bugfixed] Close design 6 list without check toggle header in settings
+* Added Admin Features
+
+= 1.0.6 (23-11-2024) =
+* Added new design as **Right hand cornor(list of contents)**
+
+= 1.0.5 (02-11-2024) =
+* Added toggle list contents feature on click of Heading text.
+* Added option for Heading text field.
+* Updated settings panel
+
 = 1.0.4 (15-09-2024) =
 * Added Navigation to index on google search.
 * Added Compatibility with classic editor.
