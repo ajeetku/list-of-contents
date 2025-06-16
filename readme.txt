@@ -5,8 +5,8 @@ Donate link:       https://www.paypal.com/paypalme/Ajeet260/25
 Tags:              list of content, table of contents, toc, navigation, page navigation
 Requires at least: 5.0  
 Requires PHP:      7.0
-Tested up to:      6.7.1
-Stable tag:        1.0.7
+Tested up to:      6.8
+Stable tag:        1.0.8
 License:           GPLv2 or later  
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -62,12 +62,15 @@ A: Yes, you can use the provided widget to place the TOC in your theme’s sideb
 == Screenshots ==
 1. Design 5 (Two Columns with order).
 2. Design 4 (Two Columns).
-3. Design 6 (Right hand cornor).
+3. Design 6 (Left hand cornor).
 4. Design 3.
 5. Design 2.
 6. Design 1
 
 == Changelog ==
+= 1.0.8 (15-06-2025) =
+* (Updated) Improvements and testing for WordPress 6.8
+
 = 1.0.7 (09-02-2025) =
 * [Bugfixed] Close design 6 list without check toggle header in settings
 * Added Admin Features
