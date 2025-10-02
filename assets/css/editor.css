@@ -1,4 +1,165 @@
+/* Editor Styles for Table of Contents Block */
 .locp-toc-block {
-    padding: 10px;
-    border: 1px solid #ddd;
+    border: 2px dashed #ddd;
+    padding: 20px;
+    margin: 20px 0;
+    background: #f9f9f9;
+    border-radius: 8px;
+    position: relative;
+}
+
+.locp-toc-block::before {
+    content: "📋 Table of Contents Block";
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: #fff;
+    padding: 0 8px;
+    font-size: 12px;
+    color: #666;
+    font-weight: bold;
+}
+
+.locp-toc-title {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.locp-toc-nav {
+    margin: 0;
+}
+
+.locp-toc-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.locp-toc-item {
+    margin: 8px 0;
+    padding: 0;
+}
+
+.locp-toc-item.level-1 {
+    margin-left: 0;
+    font-weight: 600;
+}
+
+.locp-toc-item.level-2 {
+    margin-left: 20px;
+}
+
+.locp-toc-item.level-3 {
+    margin-left: 40px;
+}
+
+.locp-toc-item.level-4 {
+    margin-left: 60px;
+}
+
+.locp-toc-item.level-5 {
+    margin-left: 80px;
+}
+
+.locp-toc-item.level-6 {
+    margin-left: 100px;
+}
+
+.locp-toc-link {
+    color: #0073aa;
+    text-decoration: none;
+    padding: 5px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.locp-toc-link:hover {
+    background: #0073aa;
+    color: #fff;
+    text-decoration: none;
+}
+
+.locp-toc-placeholder {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.locp-toc-placeholder p {
+    margin: 0;
+    font-style: italic;
+}
+
+/* Design-specific editor styles */
+.locp-toc-block.design1 {
+    border-color: #0073aa;
+    background: #f0f8ff;
+}
+
+.locp-toc-block.design2 {
+    border-color: #46b450;
+    background: #f0fff0;
+}
+
+.locp-toc-block.design3 {
+    border-color: #ffb900;
+    background: #fffbf0;
+}
+
+.locp-toc-block.design4 {
+    border-color: #dc3232;
+    background: #fff0f0;
+}
+
+.locp-toc-block.design5 {
+    border-color: #826eb4;
+    background: #f8f0ff;
+}
+
+.locp-toc-block.design6 {
+    border-color: #00a0d2;
+    background: #f0f8ff;
+}
+
+/* Inspector Controls styling */
+.components-panel__body .components-base-control {
+    margin-bottom: 16px;
+}
+
+.components-panel__body .components-base-control__label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.components-panel__body .components-select-control__input {
+    width: 100%;
+}
+
+.components-panel__body .components-text-control__input {
+    width: 100%;
+}
+
+/* Block toolbar styling */
+.block-editor-block-toolbar .components-toolbar-group {
+    margin-right: 8px;
+}
+
+/* Responsive design for editor */
+@media (max-width: 782px) {
+    .locp-toc-block {
+        padding: 15px;
+        margin: 15px 0;
+    }
+    
+    .locp-toc-item.level-2,
+    .locp-toc-item.level-3,
+    .locp-toc-item.level-4,
+    .locp-toc-item.level-5,
+    .locp-toc-item.level-6 {
+        margin-left: 15px;
+    }
 }

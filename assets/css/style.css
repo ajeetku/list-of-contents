@@ -39,5 +39,160 @@
     text-decoration: underline;
 }
 
+/* TOC Highlight Effect */
+.toc-highlight {
+    animation: tocHighlight 2s ease-in-out;
+}
+
+@keyframes tocHighlight {
+    0% { background-color: transparent; }
+    50% { background-color: #fff3cd; }
+    100% { background-color: transparent; }
+}
+
+/* Active TOC Link */
+.loc-toc a.active {
+    background-color: #0073aa;
+    color: #fff !important;
+    font-weight: bold;
+}
+
+/* Column Layout for Designs 4 and 5 */
+.toc-column {
+    display: inline-block;
+    vertical-align: top;
+    width: 48%;
+    margin-right: 2%;
+}
+
+.toc-column.right-column {
+    margin-right: 0;
+}
+
+/* Responsive Column Layout */
+@media (max-width: 768px) {
+    .toc-column {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}
+
+/* TOC Toggle States */
+.loc-toc .toc-title.active {
+    background-color: #0073aa;
+    color: #fff;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+/* Smooth Scrolling Enhancement */
+html {
+    scroll-behavior: smooth;
+}
+
+/* TOC Block Specific Styles */
+.locp-toc-block {
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.locp-toc-block .locp-toc-title {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.locp-toc-block .locp-toc-nav {
+    margin: 0;
+}
+
+.locp-toc-block .locp-toc-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.locp-toc-block .locp-toc-item {
+    margin: 8px 0;
+    padding: 5px 0;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.locp-toc-block .locp-toc-item:hover {
+    border-left-color: #0073aa;
+    padding-left: 10px;
+}
+
+.locp-toc-block .locp-toc-link {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.locp-toc-block .locp-toc-link:hover {
+    background-color: #f8f9fa;
+    color: #0073aa;
+    text-decoration: none;
+}
+
+/* Level-based styling */
+.locp-toc-block .locp-toc-item.level-1 .locp-toc-link {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.locp-toc-block .locp-toc-item.level-2 .locp-toc-link {
+    font-weight: 500;
+    font-size: 1em;
+}
+
+.locp-toc-block .locp-toc-item.level-3 .locp-toc-link {
+    font-weight: 400;
+    font-size: 0.95em;
+}
+
+.locp-toc-block .locp-toc-item.level-4 .locp-toc-link,
+.locp-toc-block .locp-toc-item.level-5 .locp-toc-link,
+.locp-toc-block .locp-toc-item.level-6 .locp-toc-link {
+    font-weight: 400;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Toggle functionality */
+.locp-toc-block .locp-toc-nav[style*="display: none"] + .locp-toc-title::after {
+    content: " ▼";
+    font-size: 0.8em;
+    color: #666;
+}
+
+.locp-toc-block .locp-toc-nav:not([style*="display: none"]) + .locp-toc-title::after {
+    content: " ▲";
+    font-size: 0.8em;
+    color: #666;
+}
+
+/* Loading state */
+.locp-toc-block.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.locp-toc-block.loading::after {
+    content: "Loading...";
+    display: block;
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
 
 

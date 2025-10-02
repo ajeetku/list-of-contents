@@ -258,7 +258,7 @@ class LOCP_Settings {
                     <ul>
                         <li class="locp-tab active" data-target="home"><?php esc_html_e('Home', 'list-of-contents'); ?></li>
                         <li class="locp-tab" data-target="styles"><?php esc_html_e('Appearance', 'list-of-contents'); ?></li>
-                        <li class="locp-tab" data-target="other-settings"><?php esc_html_e('Other Settings', 'list-of-contents'); ?></li>
+                        <li class="locp-tab" data-target="other-settings"><strong><?php esc_html_e('Need Help?', 'list-of-contents'); ?></strong></li>
                     </ul>
                 </nav>
 
@@ -284,7 +284,7 @@ class LOCP_Settings {
 
                 <div class="locp-tab-content" id="other-settings">
                     <h3><?php esc_html_e('Other Settings', 'list-of-contents'); ?></h3>
-                    <p><?php esc_html_e('Additional settings can go here.', 'list-of-contents'); ?></p>
+                    <p><?php esc_html_e('Your perfect Table of Contents is just one conversation away. From basic setup questions to advanced customization needs, whether you\'re dealing with heading selection issues, anchor link problems, or widget configuration challenges, our support system ensures you never feel stuck. The List of Contents plugin is built to work flawlessly across different themes and page builders, and we\'re here to make sure it works flawlessly for YOUR specific setup.', 'list-of-contents'); ?></p>
                     <table class="form-table">
                     <tr>
                         <th>Email</th>
@@ -301,6 +301,8 @@ class LOCP_Settings {
                     </table>
                     <p class="submitemail"><input type="button" name="submitEmail" id="locp-help-query-button" class="button button-primary" value="Send"></p>
                     <div id="message-acknowledgement"></div>
+
+                    <p><?php esc_html_e('Transform your WordPress headaches into smooth sailing. If you\'re tired of wrestling with site crashes, security threats, or performance issues that are holding your business back, it\'s time for a different approach. Professional WordPress management means no more sleepless nights wondering if your site is running properly, no more lost revenue from downtime, and no more technical mysteries that eat up your valuable time.', 'list-of-contents'); ?> <a href="https://infonews.in/contact/" target="_blank"><?php esc_html_e('Contact us', 'list-of-contents'); ?></a></p>
                 </div>
             </form>
         </div>

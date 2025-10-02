@@ -1,0 +1,58 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "locp/toc",
+    "version": "0.1.0",
+    "title": "Table of Contents by loc",
+    "category": "widgets",
+    "icon": "list-view",
+    "description": "Dynamically generates table of contents from heading blocks",
+    "example": {},
+    "supports": {
+        "html": false,
+        "anchor": true
+    },
+    "textdomain": "list-of-contents",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "viewScript": "file:./view.js",
+    "attributes": {
+        "design": {
+            "type": "string",
+            "default": "design1"
+        },
+        "headingText": {
+            "type": "string",
+            "default": "Table of Contents"
+        },
+        "enableToggle": {
+            "type": "boolean",
+            "default": false
+        },
+        "includeH1": {
+            "type": "boolean",
+            "default": false
+        },
+        "includeH2": {
+            "type": "boolean",
+            "default": true
+        },
+        "includeH3": {
+            "type": "boolean",
+            "default": true
+        },
+        "includeH4": {
+            "type": "boolean",
+            "default": false
+        },
+        "includeH5": {
+            "type": "boolean",
+            "default": false
+        },
+        "includeH6": {
+            "type": "boolean",
+            "default": false
+        }
+    }
+}

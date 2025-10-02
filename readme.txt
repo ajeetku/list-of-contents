@@ -28,16 +28,24 @@ Automatically generate a list of contents/table of contents for your posts, page
 - **Appearance Customization**: Several built-in themes and customization options for border, background, and link colors.
 - **Counter Bullet Formats**: Choose from none, decimal, numeric, and roman.
 - **Hierarchical Display**: Display the TOC hierarchically or flat.
-- **User Control**: Optionally allow users to hide the TOC, with control over default visibility.
+- **User Control**: Optionally allow users to hide the table of contents, with control over default visibility.
 - **Smooth Scrolling**: Supports smooth scrolling for better navigation.
-- **Selective Enabling**: Enable or disable the TOC on a per-post basis.
+- **Selective Enabling**: Enable or disable the table of contents on a per-post basis.
 - **Heading Selection**: Choose which headings to include in the TOC, with per-post configuration.
 - **Header Exclusion**: Easily exclude headers globally or on a per-post basis.
 - **Widget Support**: Use a widget to place the TOC in your theme’s sidebar, with options for sticky positioning and section highlighting.
 - **Developer Friendly**: Many action hooks and filters are available. Pull requests are welcomed on GitHub.
-- **Advanced Options**: Show TOC based on dynamic paragraph count, preserve line breaks, use TOC without anchor links, support custom taxonomy description, and add SiteNavigation Schema.
+- **Advanced Options**: Show table of contents based on dynamic paragraph count, preserve line breaks, use TOC without anchor links, support custom taxonomy description, and add SiteNavigation Schema.
 - **Designs**: Includes four design options, including a two-column layout.
 
+### Support
+
+We try our best to provide support on WordPress.org forums. However, We have a special [team support](https://wordpress.org/support/plugin/list-of-contents/) where you can ask us questions and get help. Delivering a good user experience means a lot to us and so we try our best to reply each and every question that gets asked.
+
+
+### Bug Reports
+
+Bug reports for Easy Table of Contents are [welcome on GitHub](https://wordpress.org/support/plugin/list-of-contents/). Please note GitHub is not a support forum, and issues that aren't properly qualified as bugs will be closed.
 
 == Installation ==
 
