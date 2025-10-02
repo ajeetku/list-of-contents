@@ -6,7 +6,7 @@ Tags:              list of content, table of contents, toc, navigation, page nav
 Requires at least: 5.0  
 Requires PHP:      7.0
 Tested up to:      6.8
-Stable tag:        1.0.8
+Stable tag:        1.0.9
 License:           GPLv2 or later  
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -76,6 +76,11 @@ A: Yes, you can use the provided widget to place the TOC in your theme’s sideb
 6. Design 1
 
 == Changelog ==
+= 1.0.9 =
+* Bug fixed for css Loading
+* Improve Gutenberg Block
+* Optimized way to render the table of contents from block 
+
 = 1.0.8 (15-06-2025) =
 * (Updated) Improvements and testing for WordPress 6.8
 

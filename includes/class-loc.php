@@ -65,20 +65,7 @@ class LOCP_Plugin {
 
     public function enqueue_block_editor_assets() {
         $options = $this->settings->get_options_with_defaults();
-    $   design  = isset( $options['locp_loc_design'] ) ? $options['locp_loc_design'] : 'design1';
-        wp_enqueue_script(
-            'locp-block-editor',
-            LOCP_PLUGIN_URL . 'assets/js/block.js',
-            array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-data', 'wp-i18n'),
-            LOCP_PLUGIN_VESION
-        );
-
-        wp_enqueue_style(
-            'locp-block-editor',
-            LOCP_PLUGIN_URL . 'assets/css/editor.css',
-            array('wp-edit-blocks'),
-            LOCP_PLUGIN_VESION
-        );
+        $design  = isset( $options['locp_loc_design'] ) ? $options['locp_loc_design'] : 'design1';
         
         // Enqueue design CSS files for editor preview
         if($design=='design1'){
