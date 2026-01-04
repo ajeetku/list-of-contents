@@ -123,8 +123,13 @@ class LOCP_Settings {
     public function enable_posts_render() {
         $options = $this->get_options_with_defaults();
         ?>
+        <input type="hidden" name="locp_options[locp_enable_posts]" value="0">
+
         <label class="locp-switch">
-            <input type="checkbox" name='locp_options[locp_enable_posts]' <?php checked(@$options['locp_enable_posts'], 1); ?> value="1">
+            <input type="checkbox"
+                name="locp_options[locp_enable_posts]"
+                value="1"
+                <?php checked((int) $options['locp_enable_posts'], 1); ?>>
             <span class="locp-slider locp-round"></span>
         </label>
         <?php
@@ -133,8 +138,13 @@ class LOCP_Settings {
     public function enable_pages_render() {
         $options = $this->get_options_with_defaults();
         ?>
+        <input type="hidden" name="locp_options[locp_enable_pages]" value="0">
+
         <label class="locp-switch">
-            <input type="checkbox" name='locp_options[locp_enable_pages]' <?php checked(@$options['locp_enable_pages'], 1); ?> value="1">
+            <input type="checkbox"
+                name="locp_options[locp_enable_pages]"
+                value="1"
+                <?php checked((int) $options['locp_enable_pages'], 1); ?>>
             <span class="locp-slider locp-round"></span>
         </label>
         <?php
