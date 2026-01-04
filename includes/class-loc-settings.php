@@ -23,7 +23,8 @@ class LOCP_Settings {
             'post_types'=> array(),
             'locp_loc_design' => 'design1',
             'locp_app_heading_text' => 'Table of Contents',
-            'locp_app_heading_toggle' => ''
+            'locp_app_heading_toggle' => '',
+            'locp_excluded_posts' => array(),
         );
         
         $options = get_option('locp_options', array());
@@ -64,6 +65,14 @@ class LOCP_Settings {
             'locp_enable_pages',
             __('Enable for Pages', 'list-of-contents'),
             array($this, 'enable_pages_render'),
+            'locp_settings',
+            'locp_settings_section'
+        );
+
+        add_settings_field(
+            'locp_excluded_posts',
+            __('Exclude Posts / Pages', 'list-of-contents'),
+            array($this, 'exclude_posts_render'),
             'locp_settings',
             'locp_settings_section'
         );
@@ -131,6 +140,61 @@ class LOCP_Settings {
         <?php
     }
 
+    public function exclude_posts_render() {
+        $options = $this->get_options_with_defaults();
+        $excluded = isset($options['locp_excluded_posts']) ? (array) $options['locp_excluded_posts'] : array();
+
+        $posts = get_posts(array(
+            'post_type'      => 'post',
+            'posts_per_page' => -1,
+            'post_status'    => 'publish',
+            'orderby'        => 'title',
+            'order'          => 'ASC',
+        ));
+
+        $pages = get_posts(array(
+            'post_type'      => 'page',
+            'posts_per_page' => -1,
+            'post_status'    => 'publish',
+            'orderby'        => 'title',
+            'order'          => 'ASC',
+        ));
+        ?>
+
+        <select
+            name="locp_options[locp_excluded_posts][]"
+            class="locp-select2"
+            multiple
+            style="width: 400px;"
+        >
+
+            <optgroup label="<?php esc_attr_e('Posts', 'list-of-contents'); ?>">
+                <?php foreach ($posts as $post): ?>
+                    <option value="<?php echo esc_attr($post->ID); ?>"
+                        <?php selected(in_array($post->ID, $excluded)); ?>>
+                        <?php echo esc_html($post->post_title); ?>
+                    </option>
+                <?php endforeach; ?>
+            </optgroup>
+
+            <optgroup label="<?php esc_attr_e('Pages', 'list-of-contents'); ?>">
+                <?php foreach ($pages as $page): ?>
+                    <option value="<?php echo esc_attr($page->ID); ?>"
+                        <?php selected(in_array($page->ID, $excluded)); ?>>
+                        <?php echo esc_html($page->post_title); ?>
+                    </option>
+                <?php endforeach; ?>
+            </optgroup>
+
+        </select>
+
+        <p class="description">
+            <?php esc_html_e('Search and select posts/pages to exclude Table of Contents.', 'list-of-contents'); ?>
+        </p>
+
+        <?php
+    }
+
     public function enable_otherPostTypes_render(){
         $options = $this->get_options_with_defaults();
         $selected_post_types = isset($options['post_types']) ? $options['post_types'] : array();
@@ -139,11 +203,12 @@ class LOCP_Settings {
             '_builtin' => false,
         );
         $post_types = get_post_types($args, 'objects');
+        if(!$post_types){echo esc_html__("No post type available"); }
         foreach ($post_types as $post_type) {
             $is_checked = in_array($post_type->name, $selected_post_types) ? 'checked' : '';
         ?>
             <label>
-                <input type="checkbox" name="locp_options[post_types][]" value="<?php echo esc_attr($post_type->name); ?>" <?php echo $is_checked; ?>>
+                <input type="checkbox" name="locp_options[post_types][]" value="<?php echo esc_attr($post_type->name); ?>" <?php echo esc_attr($is_checked); ?>>
                 <?php echo esc_html($post_type->label); ?>
             </label><br>
         <?php
@@ -238,7 +303,18 @@ class LOCP_Settings {
             return;
         }
         wp_enqueue_style('locp_admin_css', LOCP_PLUGIN_URL . 'assets/css/admin-style.css', array(), LOCP_PLUGIN_VESION);
-        wp_enqueue_script('locp_admin_css', LOCP_PLUGIN_URL . 'assets/css/admin-script.js', array(), LOCP_PLUGIN_VESION, array());
+        
+        // wp_enqueue_script('locp_admin_js', LOCP_PLUGIN_URL . 'assets/css/admin-script.js', array('jquery', 'select2'), LOCP_PLUGIN_VESION, array());
+        wp_enqueue_style( 'select2-loc-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', array(), '4.1.0-rc.0' );
+        wp_enqueue_script( 'select2-loc-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array( 'jquery' ), '4.1.0-rc.0', true );
+        wp_enqueue_script(
+            'locp_admin_js',
+            LOCP_PLUGIN_URL . 'assets/css/admin-script.js',
+            array('select2-loc-js'),
+            LOCP_PLUGIN_VESION,
+            true
+        );
+        
     }
 
     function add_settings_link($links) {

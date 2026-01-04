@@ -5,8 +5,8 @@ Donate link:       https://www.paypal.com/paypalme/Ajeet260/25
 Tags:              list of content, table of contents, toc, navigation, page navigation
 Requires at least: 5.0  
 Requires PHP:      7.0
-Tested up to:      6.8
-Stable tag:        1.0.9
+Tested up to:      6.9
+Stable tag:        1.1.0
 License:           GPLv2 or later  
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -14,30 +14,82 @@ Automatically generate a list of contents/table of contents for your posts, page
 
 == Description ==
 
-[table of contents/list of contents](https://wordpress.org/plugins/list-of-contents/) is a powerful yet user-friendly plugin that automatically generates a table of contents for your posts, pages, and custom post types by parsing the contents for headers. It supports multiple post editors and integrates seamlessly with popular plugins.
+Create professional table of contents (TOC) automatically for WordPress posts, pages, and custom post types. Our **List of Contents** plugin boosts user navigation, improves SEO rankings, and enhances content accessibility with zero coding required.
 
-[Home](https://infonews.in/customized-wordpress-development-services-expert-problem-solving/)|  [Help & Tech Support](https://infonews.in/contact/)
+**✨ Perfect for bloggers, agencies, content creators, and WordPress developers seeking better content organization and user experience.**
 
-== Features ==
+[Home](https://wordpress.org/plugins/list-of-contents/) | [Help & Tech Support](https://infonews.in/contact/) | [Learn More](https://infonews.in/customized-wordpress-development-services-expert-problem-solving/)
 
-- **Automatic TOC Generation**: Parses your content for headers and generates a table of contents.
-- **Pagination Support**: Works with the `<!--nextpage-->` tag.
-- **Page Builder Compatibility**: Works with Classic Editor, Gutenberg, Divi, Elementor, WPBakery Page Builder, and Visual Composer.
-- **Configurable TOC Insertion**: Optionally enable for pages and/or posts, and custom post types. The TOC can be auto-inserted into the content.
-- **Display Options**: Multiple options to configure when and where to insert the TOC.
-- **Appearance Customization**: Several built-in themes and customization options for border, background, and link colors.
-- **Counter Bullet Formats**: Choose from none, decimal, numeric, and roman.
-- **Hierarchical Display**: Display the TOC hierarchically or flat.
-- **User Control**: Optionally allow users to hide the TOC, with control over default visibility.
-- **Smooth Scrolling**: Supports smooth scrolling for better navigation.
-- **Selective Enabling**: Enable or disable the TOC on a per-post basis.
-- **Heading Selection**: Choose which headings to include in the TOC, with per-post configuration.
-- **Header Exclusion**: Easily exclude headers globally or on a per-post basis.
-- **Widget Support**: Use a widget to place the TOC in your theme’s sidebar, with options for sticky positioning and section highlighting.
-- **Developer Friendly**: Many action hooks and filters are available. Pull requests are welcomed on GitHub.
-- **Advanced Options**: Show TOC based on dynamic paragraph count, preserve line breaks, use TOC without anchor links, support custom taxonomy description, and add SiteNavigation Schema.
-- **Designs**: Includes four design options, including a two-column layout.
+## 🚀 Why Choose List of Contents?
 
+**SEO Benefits**: Automatically adds structured navigation that search engines love, improving your content rankings and user engagement metrics.
+
+**Universal Compatibility**: Works seamlessly with Gutenberg, Classic Editor, Elementor, Divi, WPBakery Page Builder, Visual Composer, and all major WordPress themes.
+
+**Zero Setup Required**: Install, activate, and your table of contents appears automatically - no complex configuration needed.
+
+
+## ⭐ Key Features
+
+### **Content Navigation & SEO**
+- **Automatic TOC Generation**: Instantly parses H1-H6 headers to create organized navigation
+- **SEO Schema Support**: Adds SiteNavigation Schema markup for better search engine visibility  
+- **Smooth Scrolling Navigation**: Enhances user experience with elegant page navigation
+- **Mobile-Responsive Design**: Perfect table of contents display on all devices
+
+### **Customization & Control** 
+- **6+ Built-in Designs**: Choose from professional themes including sticky sidebar and corner layouts
+- **Flexible Display Options**: Show/hide on posts, pages, custom post types, or specific content
+- **Custom Styling**: Modify colors, borders, backgrounds, and typography to match your brand
+- **Hierarchical or Flat Display**: Present content structure exactly how you want
+
+### **Advanced Features**
+- **Page Builder Integration**: Full compatibility with popular page builders and themes
+- **Widget Support**: Place TOC in sidebars with sticky positioning and section highlighting
+- **Pagination Support**: Works perfectly with WordPress `<!--nextpage-->` tags
+- **Header Management**: Include/exclude specific headings globally or per-post
+- **Developer Friendly**: Extensive hooks, filters, and GitHub collaboration welcome
+
+### **User Experience**
+- **Toggle Visibility**: Let users show/hide TOC based on their preference
+- **Multiple Bullet Formats**: Choose decimal, numeric, roman, or no bullets
+- **Dynamic Content Detection**: Only shows TOC when sufficient headings are present
+- **Accessibility Optimized**: Screen reader friendly and WCAG compliant
+
+## 🎯 Perfect For:
+
+- **Content Creators**: Long-form articles, tutorials, guides, and documentation
+- **SEO Professionals**: Websites requiring structured navigation and schema markup  
+- **WordPress Agencies**: Client sites needing professional content organization
+- **Bloggers**: Multi-section posts that benefit from easy navigation
+- **E-learning Sites**: Course content and educational materials
+- **Documentation Sites**: Technical guides and knowledge bases
+
+## 🔧 Technical Specifications
+
+- **WordPress Version**: 5.0+ (fully tested with WordPress 6.8)
+- **PHP Compatibility**: 7.4+ recommended
+- **Page Builder Support**: Gutenberg, Elementor, Divi, WPBakery, Visual Composer, Classic Editor
+- **Multisite Compatible**: Works perfectly on WordPress multisite networks
+- **Translation Ready**: Includes POT files for easy localization
+
+## 💡 Pro Tips
+
+- Ideal for content over 1000 words with multiple headings
+- Improves average time on page and reduces bounce rate
+- Enhances accessibility for users with navigation difficulties  
+- Boost SEO with better content structure and user engagement signals
+
+**Ready to improve your content navigation and SEO?** Install List of Contents now and see the difference professional table of contents make for your WordPress site.
+
+### Support
+
+We try our best to provide support on WordPress.org forums. However, We have a special [team support](https://wordpress.org/support/plugin/list-of-contents/) where you can ask us questions and get help. Delivering a good user experience means a lot to us and so we try our best to reply each and every question that gets asked.
+
+
+### Bug Reports
+
+*Open source and actively maintained. Community contributions welcome on [GitHub](https://github.com/ajeetku/list-of-contents).* Please note GitHub is not a support forum, and issues that aren't properly qualified as bugs will be closed.
 
 == Installation ==
 
@@ -68,6 +120,11 @@ A: Yes, you can use the provided widget to place the TOC in your theme’s sideb
 6. Design 1
 
 == Changelog ==
+= 1.1.0 =
+* Added Exclude Posts / Pages option to disable Table of Contents on selected content.
+* Implemented searchable multi-select dropdown 
+* Improved enable List of content on external posttype list
+
 = 1.0.9 =
 * Bug fixed for css Loading
 * Improve Gutenberg Block

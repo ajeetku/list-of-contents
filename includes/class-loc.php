@@ -273,6 +273,11 @@ class LOCP_Plugin {
             }
 
             $options = $this->settings->get_options_with_defaults();
+            $pageID = get_queried_object_id(); //current PageId
+            if( $pageID && isset($options['locp_excluded_posts']) && in_array($pageID, $options['locp_excluded_posts'])){
+                return $content;
+            }
+
             if ((is_single() && $options['locp_enable_posts']) || (is_page() && $options['locp_enable_pages'])) {
                 // Logic to generate and insert TOC goes here.
                 $toc = $this->generate_locp($content);

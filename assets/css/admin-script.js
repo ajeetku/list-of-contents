@@ -12,4 +12,9 @@
             $('#' + target).addClass('active');
         });
     });
+    $('.locp-select2').select2({
+        placeholder: 'Select posts or pages',
+        allowClear: true,
+        width: 'resolve'
+    });
 })(jQuery);
