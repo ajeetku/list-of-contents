@@ -20,7 +20,7 @@ class LOCP_Plugin {
     }
 
     public function load_textdomain() {
-        load_plugin_textdomain('list-of-contents', false, dirname(plugin_basename(__FILE__)) . '/languages');
+        //load_plugin_textdomain('list-of-contents', false, dirname(LOCP_PLUGIN_BASENAME) . '/languages');
     }
 
     public function register_block_loc() {
@@ -93,7 +93,7 @@ class LOCP_Plugin {
         }
 
         $design = isset($attributes['design']) ? $attributes['design'] : 'design1';
-        $headingText = isset($attributes['headingText']) ? $attributes['headingText'] : 'Table of Contents';
+        $headingText = isset($attributes['headingText']) ? $attributes['headingText'] : esc_html__('Table of Contents', 'list-of-contents');
         $enableToggle = isset($attributes['enableToggle']) ? $attributes['enableToggle'] : false;
         
         // Get the post content
@@ -109,7 +109,7 @@ class LOCP_Plugin {
         // Build the TOC HTML
         $toc_html = '<div class="locp-toc-block ' . esc_attr($design) . '">';
         $toc_html .= '<p style="cursor:pointer" id="list-table-of-contents">' . esc_html($headingText) . '</p>';
-        $toc_html .= '<nav' . ($enableToggle ? ' style="display: none;"' : '') . '><ol>';
+        $toc_html .= '<nav' . esc_attr($enableToggle ? ' style="display: none;"' : '') . '><ol>';
         
         // Add TOC items
         foreach ($toc_data[1] as $heading) {
@@ -296,7 +296,7 @@ class LOCP_Plugin {
         // $options = get_option('locp_options');
         $design_class = isset($options['locp_loc_design']) ? $options['locp_loc_design'] : 'design1';
     
-        $toc = '<div class="loc-toc ' . esc_attr($design_class) . '"><p style="cursor:pointer" id="list-table-of-contents">'.esc_html(__($options['locp_app_heading_text'],'list-of-contents')).'</p><nav><ol>';
+        $toc = '<div class="loc-toc ' . esc_attr($design_class) . '"><p style="cursor:pointer" id="list-table-of-contents">'.esc_html($options['locp_app_heading_text']).'</p><nav><ol>';
         
         global $post;
 

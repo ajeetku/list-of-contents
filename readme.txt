@@ -6,7 +6,7 @@ Tags:              list of content, table of contents, toc, navigation, page nav
 Requires at least: 5.0  
 Requires PHP:      7.0
 Tested up to:      6.9
-Stable tag:        1.1.0
+Stable tag:        1.1.0.2
 License:           GPLv2 or later  
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -122,6 +122,11 @@ A: Yes, you can use the provided widget to place the TOC in your theme’s sideb
 6. Design 1
 
 == Changelog ==
+= 1.1.0.2 =
+* Turning OFF the “Enable for Pages” option now stays OFF as expected.
+* Plugin Improved Security Checks
+* Admin settings performance Improvements
+
 = 1.1.0 =
 * Added Exclude Posts / Pages option to disable Table of Contents on selected content.
 * Implemented searchable multi-select dropdown 

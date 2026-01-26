@@ -43,7 +43,11 @@ class LOCP_Settings {
 
     public function settings_init() {
         // Register 'locp_settings' option group and settings.
-        register_setting('locp_settings', 'locp_options');
+        register_setting('locp_settings', 'locp_options', 
+            array(
+                'sanitize_callback' => array($this, 'sanitize_locp_options'),
+            )
+        );
 
         // Main settings section.
         add_settings_section(
@@ -94,7 +98,10 @@ class LOCP_Settings {
         );
 
         // Register 'locp_appearance' option group and settings.
-        register_setting('locp_appearance', 'locp_options');
+        register_setting('locp_appearance', 'locp_options', array(
+            'sanitize_callback' => array($this, 'sanitize_locp_options'),
+            )
+        );
 
         // Appearance section.
         add_settings_section(
@@ -119,6 +126,34 @@ class LOCP_Settings {
             'locp_appearance_section'
         );
     }
+
+    public function sanitize_locp_options($options) {
+        $clean = array();
+
+        $clean['locp_enable_posts']  = isset($options['locp_enable_posts']) ? (int) $options['locp_enable_posts'] : 0;
+        $clean['locp_enable_pages']  = isset($options['locp_enable_pages']) ? (int) $options['locp_enable_pages'] : 0;
+
+        $clean['locp_app_heading_toggle'] = isset($options['locp_app_heading_toggle']) ? (int) $options['locp_app_heading_toggle'] : 0;
+
+        $clean['locp_app_heading_text'] = isset($options['locp_app_heading_text'])
+            ? sanitize_text_field($options['locp_app_heading_text'])
+            : 'Table of Contents';
+
+        $clean['locp_loc_design'] = isset($options['locp_loc_design'])
+            ? sanitize_text_field($options['locp_loc_design'])
+            : 'design1';
+
+        $clean['post_types'] = isset($options['post_types']) && is_array($options['post_types'])
+            ? array_map('sanitize_key', $options['post_types'])
+            : array();
+
+        $clean['locp_excluded_posts'] = isset($options['locp_excluded_posts']) && is_array($options['locp_excluded_posts'])
+            ? array_map('absint', $options['locp_excluded_posts'])
+            : array();
+
+        return $clean;
+    }
+
 
     public function enable_posts_render() {
         $options = $this->get_options_with_defaults();
@@ -213,7 +248,7 @@ class LOCP_Settings {
             '_builtin' => false,
         );
         $post_types = get_post_types($args, 'objects');
-        if(!$post_types){echo esc_html__("No post type available"); }
+        if(!$post_types){echo esc_html_e("No post type available", 'list-of-contents'); }
         foreach ($post_types as $post_type) {
             $is_checked = in_array($post_type->name, $selected_post_types) ? 'checked' : '';
         ?>
@@ -252,60 +287,95 @@ class LOCP_Settings {
     public function toc_heading_text_render(){
         $options = $this->get_options_with_defaults();
         ?>
-        <input type="text" name="locp_options[locp_app_heading_text]" value="<?php echo @$options['locp_app_heading_text']? @$options['locp_app_heading_text']: 'Table of Contents'; ?>">
+        <input type="text" name="locp_options[locp_app_heading_text]" value="<?php echo esc_attr($options['locp_app_heading_text'] ?? 'Table of Contents'); ?>">
         <?php
     }
 
-    function locp_send_help_query_message(){
-        if ( ! isset( $_POST['locp_security_nonce'] ) ){
-            return; 
-         }
-         if ( !wp_verify_nonce( $_POST['locp_security_nonce'], 'locp_ajax_check_nonce' ) ){
-            return;  
-         }   
-         if ( !current_user_can( 'manage_options' ) ) {
-             return;  					
-         }
-         $message        = sanitize_textarea_field($_POST['locp_help_query_message']); 
-         $email          = sanitize_email($_POST['locp_help_query_email']);
-                                 
-         if(function_exists('wp_get_current_user')){
+    function locp_send_help_query_message() {
+        if (
+            ! isset($_POST['locp_security_nonce']) ||
+            ! wp_verify_nonce(
+                sanitize_text_field(wp_unslash($_POST['locp_security_nonce'])),
+                'locp_ajax_check_nonce'
+            )
+        ) {
+            wp_send_json_error(
+                array(
+                    'message' => esc_html__( 'Nonce verification failed.', 'list-of-contents' ),
+                ),
+                403
+            );
+        }
 
-             $user           = wp_get_current_user();
+        // Capability check
+        if ( ! current_user_can('manage_options') ) {
+            wp_send_json_error(
+                array(
+                    'message' => esc_html__( 'You are not allowed to perform this action.', 'list-of-contents' ),
+                ),
+                403
+            );
+        }
 
-          
-             $message = '<p>'.$message.'</p><br><br>'.'Query from for list of Content plugin: '.get_option('home');
-             
-             $user_data  = $user->data;        
-             $user_email = $user_data->user_email;     
-             
-             if($email){
-                 $user_email = $email;
-             }            
-             //php mailer variables        
-             $sendto    = 'ashu64711@gmail.com';
-             $subject   = "List of Content Query or Help";
-             
-             $headers[] = 'Content-Type: text/html; charset=UTF-8';
-             $headers[] = 'From: '. esc_attr($user_email);            
-             $headers[] = 'Reply-To: ' . esc_attr($user_email);
-             // Load WP components, no themes.   
+        // Sanitize input
+        $message = isset($_POST['locp_help_query_message'])
+            ? sanitize_textarea_field(wp_unslash($_POST['locp_help_query_message']))
+            : '';
 
-             $sent = wp_mail($sendto, $subject, $message, $headers); 
+        $email = isset($_POST['locp_help_query_email'])
+            ? sanitize_email(wp_unslash($_POST['locp_help_query_email']))
+            : '';
 
-             if($sent){
+        if ( empty($message) ) {
+            wp_send_json_error(
+                array(
+                    'message' => esc_html__( 'Message cannot be empty.', 'list-of-contents' ),
+                ),
+                400
+            );
+        }
 
-                  echo wp_json_encode(array('status'=>'t'));  
+        $user = wp_get_current_user();
+        $user_email = $user && $user->user_email ? $user->user_email : get_option('admin_email');
 
-             }else{
+        if ( ! empty($email) ) {
+            $user_email = $email;
+        }
 
-                 echo wp_json_encode(array('status'=>'f'));            
+        // Build safe email body
+        $email_body  = '<p>' . esc_html($message) . '</p>';
+        $email_body .= '<br><br>';
+        $email_body .= esc_html__( 'Query from List of Contents plugin:', 'list-of-contents' ) . ' ';
+        $email_body .= esc_url( home_url() );
 
-             }
-             
-         }
-                         
-         wp_die();
+        // Mail headers
+        $headers = array(
+            'Content-Type: text/html; charset=UTF-8',
+            'From: ' . esc_attr($user_email),
+            'Reply-To: ' . esc_attr($user_email),
+        );
+
+        $sent = wp_mail(
+            'ashu64711@gmail.com',
+            esc_html__( 'List of Contents – Support Request', 'list-of-contents' ),
+            $email_body,
+            $headers
+        );
+
+        if ( $sent ) {
+            wp_send_json_success(
+                array(
+                    'message' => esc_html__( 'Your message has been sent successfully.', 'list-of-contents' ),
+                )
+            );
+        }
+
+        wp_send_json_error(
+            array(
+                'message' => esc_html__( 'Failed to send the message. Please try again later.', 'list-of-contents' ),
+            ),
+            500
+        );
     }
     
     public function enqueue_admin_styles($hook) {
@@ -315,8 +385,8 @@ class LOCP_Settings {
         wp_enqueue_style('locp_admin_css', LOCP_PLUGIN_URL . 'assets/css/admin-style.css', array(), LOCP_PLUGIN_VESION);
         
         // wp_enqueue_script('locp_admin_js', LOCP_PLUGIN_URL . 'assets/css/admin-script.js', array('jquery', 'select2'), LOCP_PLUGIN_VESION, array());
-        wp_enqueue_style( 'select2-loc-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', array(), '4.1.0-rc.0' );
-        wp_enqueue_script( 'select2-loc-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array( 'jquery' ), '4.1.0-rc.0', true );
+        wp_enqueue_style( 'select2-loc-css', LOCP_PLUGIN_URL . 'assets/css/select2.min.css', array(), '4.1.0-rc.0' );
+        wp_enqueue_script( 'select2-loc-js', LOCP_PLUGIN_URL . 'assets/js/select2.min.js', array( 'jquery' ), '4.1.0-rc.0', true );
         wp_enqueue_script(
             'locp_admin_js',
             LOCP_PLUGIN_URL . 'assets/css/admin-script.js',
@@ -394,8 +464,8 @@ class LOCP_Settings {
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                const locp_ajax_url = '<?php echo admin_url('admin-ajax.php') ?>'
-                const locp_nonce = '<?php echo wp_create_nonce('locp_ajax_check_nonce') ?>'
+                const locp_ajax_url = '<?php echo esc_url(admin_url('admin-ajax.php')); ?>'
+                const locp_nonce = '<?php echo esc_attr(wp_create_nonce('locp_ajax_check_nonce')); ?>'
                 const messageField = document.getElementById('locp_help_query_message');
                 const emailField = document.getElementById('locp_help_query_email');
                 const messageButton = document.getElementById('locp-help-query-button');
